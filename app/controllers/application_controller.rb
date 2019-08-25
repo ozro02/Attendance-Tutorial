@@ -13,10 +13,10 @@ class ApplicationController < ActionController::Base
     @attendances = @user.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
 
     unless one_month.count == @attendances.count
-     ActiveRecord::Base.transaction do
-       one_month.each { |day| @user.attendances.create!(worked_on: day) }
-     end
-     @attendances = @user.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
+      ActiveRecord::Base.transaction do
+        one_month.each { |day| @user.attendances.create!(worked_on: day) }
+      end
+      @attendances = @user.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
     end
 
   rescue ActiveRecord::RecordInvalid
